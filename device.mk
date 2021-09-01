@@ -15,6 +15,24 @@ endif
 
 ### APEX
 PRODUCT_COMPRESSED_APEX := false
+### OPENGAPPS
+ifeq ($(WITH_OPENGAPPS),true)
+GAPPS_VARIANT := micro
+GAPPS_FORCE_PACKAGE_OVERRIDES := true
+DONT_DEXPREOPT_PREBUILTS := true
+GAPPS_FORCE_MMS_OVERRIDES := true
+GAPPS_FORCE_DIALER_OVERRIDES := true
+# GAPPS From mini
+GAPPS_PRODUCT_PACKAGES += PrebuiltDeskClockGoogle CalculatorGoogle CarrierServices
+# GAPPS From full
+GAPPS_PRODUCT_PACKAGES += Drive PrebuiltKeep PlayGames Recorder
+# GAPPS From stock
+GAPPS_PRODUCT_PACKAGES += ContactsGoogle StorageManagerGoogle GooglePay CalendarGooglePrebuilt LatinImeGoogle StorageManagerGoogle TranslatePrebuilt GoogleVrCore Wallet
+# GAPPS From super
+GAPPS_PRODUCT_PACKAGES += EditorsDocs EditorsSheets
+
+$(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
+endif
 
 ### DALVIK
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
